@@ -18,20 +18,24 @@
       padding: 25px;
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 400px;
+      max-width: 450px;
       width: 100%;
       text-align: center;
+      margin: 0 auto;
     }
     h1 {
       margin-bottom: 10px;
       color: #2d2d2d;
+      font-size: 24px;
+      font-weight: bold;
     }
     input, textarea {
-      padding: 10px;
-      margin: 8px 0;
+      padding: 12px;
+      margin: 10px 0;
       width: 100%;
       border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 16px;
     }
     button {
       padding: 12px 20px;
@@ -41,6 +45,11 @@
       border-radius: 8px;
       cursor: pointer;
       margin-top: 15px;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0b7c6a;
     }
     #qrSection, #thankYouSection {
       display: none;
@@ -49,12 +58,20 @@
       width: 220px;
       margin-top: 20px;
     }
+    #thankYouSection {
+      padding-top: 20px;
+    }
+
+    .thank-you-msg {
+      font-size: 20px;
+      color: #2d2d2d;
+      font-weight: bold;
+    }
 
     /* Mobile responsiveness */
     @media (max-width: 480px) {
       .container {
         padding: 20px;
-        margin: 10px;
       }
       input, textarea {
         font-size: 14px;
@@ -81,10 +98,8 @@
     </div>
 
     <div id="thankYouSection">
-      <h2>Thank You for Your Kindness 🙏</h2>
-      <p>We truly appreciate your support. Leave us a message:</p>
-      <textarea id="message" placeholder="Your thoughts or blessings..."></textarea><br />
-      <button onclick="submitMessage()">Submit Message</button>
+      <h2 class="thank-you-msg">Thank You for Your Generosity! 🙏</h2>
+      <p>Your donation makes a significant impact, and we are grateful for your support. 💖</p>
     </div>
   </div>
 
@@ -137,38 +152,6 @@
 
       document.getElementById('qrSection').style.display = 'none';
       document.getElementById('thankYouSection').style.display = 'block';
-    }
-
-    async function submitMessage() {
-      const name = localStorage.getItem("donorName");
-      const email = localStorage.getItem("donorEmail");
-      const amount = localStorage.getItem("donationAmount");
-      const upiRefId = localStorage.getItem("upiRefId");
-      const message = document.getElementById("message").value.trim();
-
-      if (!message) {
-        alert("Please write a message.");
-        return;
-      }
-
-      try {
-        const res = await fetch("http://localhost:8000/donation", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ name, email, amount, upiRefId, message })
-        });
-
-        const data = await res.json();
-        alert(data.message || "Donation and message submitted!");
-
-        document.getElementById("message").disabled = true;
-        localStorage.clear(); // Clear everything after submission
-      } catch (error) {
-        alert("Error sending data to backend.");
-        console.error(error);
-      }
     }
   </script>
 </body>
