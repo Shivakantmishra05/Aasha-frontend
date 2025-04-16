@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aasha – Food Donation Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <style>
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content {
+      color: white;
+    }
+    .bg-orange {
+      background-color: #fd7e14;
+      color: white;
+    }
+    .donor-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .work-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .hero-section {
+        height: 70vh;
+      }
+
+      .hero-img {
+        height: 100%;
+      }
+
+      .overlay {
+        padding: 20px;
+      }
+
+      .navbar-toggler {
+        border: none;
+      }
+
+      .navbar-nav {
+        text-align: center;
+      }
+
+      .carousel-inner .carousel-item {
+        text-align: center;
+      }
+
+      .work-img {
+        height: 200px; /* Adjust work images height for smaller screens */
+      }
+
+      .stat-box {
+        margin-bottom: 2px; /* Space between stats boxes on mobile */
+      }
+
+      .stat-box h1 {
+        font-size: 30px;
+      }
+
+      .stat-box p, .stat-box h3 {
+        font-size: 16px;
+      }
+
+      /* Adjusting Cards in Latest Donations */
+      .carousel-item .card {
+        margin-bottom: 15px;
+      }
+
+      .carousel-item .card img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .container iframe {
+        height: 350px; /* Adjust iframe size on small screens */
+      }
+
+      footer {
+        padding-top: 30px;
+        padding-bottom: 20px;
+      }
+
+      footer .row {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      footer .col-md-3, footer .col-md-4, footer .col-md-2 {
+        margin-bottom: 20px;
+      }
+
+      footer .col-md-3 .social-icons {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center" href="#">
+        <img src="logo.png" alt="Aasha Logo" height="40" style="margin-right: 8px;" />
+        <span style="font-size: 24px;">AASHA</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#donor">Donors</a></li>
+          <li class="nav-item"><a class="nav-link" href="#impact">Our Work</a></li>
+          <li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq" onclick="toggleChat()">Faq</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+<!-- Hero Section -->
+<section class="hero-section position-relative">
+  <img src="hero.jpg" alt="Hero" class="hero-img w-100 h-100 object-fit-cover position-absolute top-0 start-0 z-n1">
+  <div class="overlay text-white d-flex justify-content-center align-items-center flex-column text-center">
+    <h1 class="display-4 fw-bold">Join Aasha – Donating food isn’t charity—it’s humanity</h1>
+    <div class="mt-4">
+      <a href="donate.html" class="btn btn-warning me-3">Donate Food</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+  <!-- stats Section -->
+  <section class="stats-section">
+    <div class="stat-box orange">
+      <h3>Served Over</h3>
+      <h1>00000</h1>
+      <p></p>
+    </div>
+    <div class="stat-box light-orange">
+      <h3>Donate Money</h3>
+      <p>Help us provide meals for those in need. Every rupee counts.</p>
+      <a href="donate.html">
+        <button>Donate Now</button>
+      </a>    
+    </div>
+    <div class="stat-box yellow">
+      <h3>Be a Volunteer</h3>
+      <p>Be a part of our mission. Join hands to serve humanity.</p>
+      <a href="volunteer.html">
+      <button>Be A Volunteer</button>
+      </a>
+    </div>
+  </section>
+   <!-- new section -->
+   <section class="my-5 py-5 bg-light">
+    <div class="container">
+      <div class="row text-center">
+        
+        <!-- Make Donation -->
+        <div class="col-md-4 mb-4">
+          <div class="p-4 shadow-sm bg-white h-100">
+            <img src="https://img.icons8.com/ios/100/fa314a/like.png" alt="Donate Icon" style="height: 50px;">
+            <h5 class="mt-3">Make Donation</h5>
+            <p class="text-muted">
+              Support causes you believe in and help us reach more people in need.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Become A Volunteer -->
+        <div class="col-md-4 mb-4">
+          <div class="p-4 shadow-sm bg-white h-100">
+            <img src="https://img.icons8.com/ios/100/fa314a/helping-hand.png" alt="Volunteer Icon" style="height: 50px;">
+            <h5 class="mt-3">Become A Volunteer</h5>
+            <p class="text-muted">
+              Join our community and be the change you want to see in the world.
+            </p>
+          </div>
+        </div>
+  
+        <!-- Get Involved with Subtle Button -->
+        <div class="col-md-4 mb-4">
+          <div class="p-4 shadow-sm bg-white h-100">
+            <img src="https://img.icons8.com/ios/100/fa314a/megaphone.png" alt="Get Involved Icon" style="height: 50px;">
+            <h5 class="mt-3">Get Involved</h5>
+            <p class="text-muted">
+              Spread the word, inspire others, and help us amplify the impact of kindness.
+            </p>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Our Work Section -->
+  <section class="section bg-light text-center" id="impact">
+    <div class="container">
+      <h2 class="mb-5">Our Impact</h2>
+      <div id="workCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <img src="work1.jpg" class="work-img" alt="Work 1" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <img src="work2.jpg" class="work-img" alt="Work 2" />
+              </div>
+              <div class="col-md-4 mb-3">
+                <img src="work3.jpg" class="work-img" alt="Work 3" />
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <img src="work3.jpg" class="work-img" alt="Work 3" />
+              </div>
+              <div class="col-md-4 mb-4">
+                <img src="work4.jpg" class="work-img" alt="Work 4" />
+              </div>
+              <div class="col-md-4 mb-4">
+                <img src="work4.jpg" class="work-img" alt="Work 4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <button class="carousel-control-prev" type="button" data-bs-target="#workCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#workCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Donations Section -->
+<section id="donor" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Latest Donations</h2>
+      <p class="text-center text-muted mb-5">
+        In India, where every meal is a blessing, your support helps serve hope—one plate at a time.
+      </p>
+  
+      <div id="latestDonationsCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <div class="row justify-content-center">
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm text-center">
+                  <img src="donor1.jpg" class="rounded-circle mx-auto" alt="Donor" style="width: 80px; height: 80px;">
+                  <h5 class="mt-3 mb-0">Asha Mishra</h5>
+                  <small class="text-muted">Donated Just now</small>
+                  <p class="mt-2 mb-1">
+                    Donated <span class="text-success fw-bold">abc</span> for
+                  </p>
+                  <a href="#" class="text-decoration-none text-warning">Children Needs Food</a>
+                </div>
+              </div>
+  
+              <!-- Donor 2 -->
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm text-center">
+                  <img src="donor2.jpg" class="rounded-circle mx-auto" alt="Donor" style="width: 80px; height: 80px;">
+                  <h5 class="mt-3 mb-0">Arunesh mishra</h5>
+                  <small class="text-muted">2 hours ago</small>
+                  <p class="mt-2 mb-1">
+                    Donated <span class="text-success fw-bold">xyz</span> for
+                  </p>
+                  <a href="#" class="text-decoration-none text-warning">Elderly Support</a>
+                </div>
+              </div>
+  
+              <!-- Donor 3 -->
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm text-center">
+                  <img src="donor3.jpg" class="rounded-circle mx-auto" alt="Donor" style="width: 80px; height: 80px;">
+                  <h5 class="mt-3 mb-0">Shivakant Mishra</h5>
+                  <small class="text-muted">1 day ago</small>
+                  <p class="mt-2 mb-1">
+                    Donated <span class="text-success fw-bold">123</span> for
+                  </p>
+                  <a href="#" class="text-decoration-none text-warning">School Feeding</a>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <div class="row justify-content-center">
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm text-center">
+                  <img src="donor4.jpg" class="rounded-circle mx-auto" alt="Donor" style="width: 80px; height: 80px;">
+                  <h5 class="mt-3 mb-0">sachin mishra</h5>
+                  <small class="text-muted">1 hour ago</small>
+                  <p class="mt-2 mb-1">
+                    Donated <span class="text-success fw-bold">500</span> for
+                  </p>
+                  <a href="#" class="text-decoration-none text-warning">Community Kitchen</a>
+                </div>
+              </div>
+  
+              <!-- Donor 5 -->
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm text-center">
+                  <img src="donor5.jpg" class="rounded-circle mx-auto" alt="Donor" style="width: 80px; height: 80px;">
+                  <h5 class="mt-3 mb-0">vaibhav</h5>
+                  <small class="text-muted">2 days ago</small>
+                  <p class="mt-2 mb-1">
+                    Donated <span class="text-success fw-bold">1000</span> for
+                  </p>
+                  <a href="#" class="text-decoration-none text-warning">Child Welfare</a>
+                </div>
+              </div>
+  
+              <!-- Donor 6 -->
+              <div class="col-md-4 mb-4">
+                <div class="card p-4 shadow-sm text-center">
+                  <img src="donor6.jpg" class="rounded-circle mx-auto" alt="Donor" style="width: 80px; height: 80px;">
+                  <h5 class="mt-3 mb-0">Rahul</h5>
+                  <small class="text-muted">Yesterday</small>
+                  <p class="mt-2 mb-1">
+                    Donated <span class="text-success fw-bold">200</span> for
+                  </p>
+                  <a href="#" class="text-decoration-none text-warning">Food for Families</a>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Additional Slides can go here if needed -->
+        </div>
+  
+        <button class="carousel-control-prev" type="button" data-bs-target="#latestDonationsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#latestDonationsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- gallery Section -->
+  <section class="py-5 bg-white" id="gallery">
+    <div class="container text-center">
+      <h2 class="mb-4">Our Work in Action 📸</h2>
+      <p class="text-muted mb-4">Real moments from our donation drives and events.</p>
+  
+      <div class="row g-3">
+        <!-- Repeat this block for each image -->
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food5.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+  
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food2.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+  
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food3.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food4.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food4.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food5.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food3.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <img src="food2.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image" loading="lazy">
+        </div>
+  
+        <!-- ADD MORE BELOW SIMPLY BY COPYING A BLOCK -->
+      </div>
+    </div>
+
+  </section>
+
+
+
+<!-- Feedback Section -->
+
+<section id="feedback" class="section bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <iframe 
+            src="feedback.html" 
+            frameborder="0" 
+            style="width: 100%; height: 500px; border: none;" 
+            scrolling="no">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Chatbox -->
+<div class="chatbot-container" id="chatbot">
+  <div class="chatbot-header">Ask Help 🤖</div>
+  <div class="chatbot-body" id="chat-log">
+    <div class="bot-message">Hi! Choose a question below:</div>
+    <div class="suggested-questions">
+      <button onclick="autoQuestion('Where does the donation go?')">Where does the donation go?</button>
+      <button onclick="autoQuestion('Can I donate food directly?')">Can I donate food directly?</button>
+      <button onclick="autoQuestion('How can I volunteer?')">How can I volunteer?</button>
+      <button onclick="autoQuestion('Is my money safe?')">Is my money safe?</button>
+      <button onclick="autoQuestion('Do I get any receipt?')">Do I get any receipt?</button>
+    </div>
+  </div>
+</div>
+  
+  <!-- Footer Starts -->
+<footer class="bg-dark text-light pt-5 pb-3">
+    <div class="container">
+      <div class="row">
+  
+        <!-- About -->
+        <div class="col-md-3 mb-4">
+          <h5>ABOUT US</h5>
+          <p>This is not charity—it’s humanity. Aasha stands for the belief that no one should beg for a basic need: food.
+          We are on a mission to bring food to every plate. Join us to support those in need and create a hunger-free India.</p>
+          <div>
+            <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-light"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+  
+        
+        <!-- Site Links -->
+        <div class="col-md-2 mb-4">
+          <h5>SITE LINKS</h5>
+          <ul class="list-unstyled">
+            <li><a href="#container" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="#about" class="text-light text-decoration-none">About</a></li>
+            <li><a href="#donor" class="text-light text-decoration-none">Donors</a></li>
+            <li><a href="#impact" class="text-light text-decoration-none">Our Work</a></li>
+            <li><a href="#feedback" class="text-light text-decoration-none">Feedback</a></li>
+            <li><a href="#faq" class="text-light text-decoration-none">FAQ</a></li>          </ul>
+        </div>
+        
+        <!-- Contact -->
+        <div class="col-md-3 mb-4">
+        <h5>HAVE A QUESTION?</h5>
+       <p><i class="fas fa-map-marker-alt me-2"></i>New Delhi, India</p>
+      <p><i class="fas fa-phone me-2"></i>+91 9720028490</p>
+      <p><i class="fas fa-envelope me-2"></i>contact@aasha.org</p>
+
+      <!-- Blog Button (Center aligned) -->
+      <div class="text-center mt-4">
+        <a href="blog1.html" class="btn btn-success">Visit Our Blog</a>
+      </div>
+        </div>
+
+  
+ 
+
+  
+      </div>
+      <div class="text-center pt-3 border-top border-secondary">
+        <small>© 2025 Aasha Foundation. All rights reserved | Made with ❤️ for a better tomorrow.</small>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Footer Ends -->
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

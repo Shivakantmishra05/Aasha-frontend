@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donate - Aasha</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+      color: #2d2d2d;
+    }
+    input, textarea {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      padding: 12px 20px;
+      background: #0d9488;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    #qrSection, #thankYouSection {
+      display: none;
+    }
+    img.qr {
+      width: 220px;
+      margin-top: 20px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      input, textarea {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Make a Difference Today 💖</h1>
+
+    <div id="formSection">
+      <input type="text" id="name" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="number" id="amount" placeholder="Donation Amount (INR)" />
+      <button onclick="showQR()">Donate Now</button>
+    </div>
+
+    <div id="qrSection">
+      <p>Scan the QR Code below to complete your donation.</p>
+      <img src="qr.png" alt="QR Code" class="qr" />
+      <br />
+      <button onclick="showThanks()">I've Donated</button>
+    </div>
+
+    <div id="thankYouSection">
+      <h2>Thank You for Your Kindness 🙏</h2>
+      <p>We truly appreciate your support. Leave us a message:</p>
+      <textarea id="message" placeholder="Your thoughts or blessings..."></textarea><br />
+      <button onclick="submitMessage()">Submit Message</button>
+    </div>
+  </div>
+
+  <script>
+    function showQR() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value.trim());
+
+      if (!name || !email || !amount || amount <= 0) {
+        alert("Please fill in all fields correctly.");
+        return;
+      }
+
+      localStorage.setItem("donorName", name);
+      localStorage.setItem("donorEmail", email);
+      localStorage.setItem("donationAmount", amount);
+
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('qrSection').style.display = 'block';
+    }
+
+    async function showThanks() {
+      const upiRefId = prompt("Enter UPI Reference ID:")?.trim().toLowerCase();
+      if (!upiRefId) {
+        alert("UPI Reference ID is required!");
+        return;
+      }
+
+      localStorage.setItem("upiRefId", upiRefId);
+
+      const name = localStorage.getItem("donorName");
+      const email = localStorage.getItem("donorEmail");
+      const amount = localStorage.getItem("donationAmount");
+
+      try {
+        const res = await fetch("https://aasha-backend.onrender.com/donation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, amount, upiRefId, message: "" })
+        });
+
+        const data = await res.json();
+        console.log("Donation submitted:", data);
+      } catch (error) {
+        console.error("Error while sending donation data:", error);
+      }
+
+      document.getElementById('qrSection').style.display = 'none';
+      document.getElementById('thankYouSection').style.display = 'block';
+    }
+
+    async function submitMessage() {
+      const name = localStorage.getItem("donorName");
+      const email = localStorage.getItem("donorEmail");
+      const amount = localStorage.getItem("donationAmount");
+      const upiRefId = localStorage.getItem("upiRefId");
+      const message = document.getElementById("message").value.trim();
+
+      if (!message) {
+        alert("Please write a message.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:8000/donation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, amount, upiRefId, message })
+        });
+
+        const data = await res.json();
+        alert(data.message || "Donation and message submitted!");
+
+        document.getElementById("message").disabled = true;
+        localStorage.clear(); // Clear everything after submission
+      } catch (error) {
+        alert("Error sending data to backend.");
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>

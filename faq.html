@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minimal FAQ Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    /* Floating Chat Button */
+    .faq-toggle-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0e6efd;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 1001;
+    }
+
+    /* Chatbox Container */
+    .chatbot-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .chatbot-header {
+      background: #0e6efd;
+      color: white;
+      padding: 14px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .chatbot-body {
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      max-height: 400px;
+    }
+
+    .bot-message, .user-message {
+      margin: 6px 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .bot-message {
+      background: #f1f1f1;
+      align-self: flex-start;
+    }
+
+    .user-message {
+      background: #d1e7ff;
+      align-self: flex-end;
+    }
+
+    .suggested-questions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .suggested-questions button {
+      background: #e0e0e0;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      cursor: pointer;
+      flex: 1 1 45%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Chat Toggle Button -->
+  <button class="faq-toggle-btn" onclick="toggleChat()">💬 Ask Aasha</button>
+
+  <!-- Chatbox -->
+  <div class="chatbot-container" id="chatbot">
+    <div class="chatbot-header">Ask Aasha 🤖</div>
+    <div class="chatbot-body" id="chat-log">
+      <div class="bot-message">Hi! Choose a question below:</div>
+      <div class="suggested-questions">
+        <button onclick="autoQuestion('Where does the donation go?')">Where does the donation go?</button>
+        <button onclick="autoQuestion('Can I donate food directly?')">Can I donate food directly?</button>
+        <button onclick="autoQuestion('How can I volunteer?')">How can I volunteer?</button>
+        <button onclick="autoQuestion('Is my money safe?')">Is my money safe?</button>
+        <button onclick="autoQuestion('Do I get any receipt?')">Do I get any receipt?</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatbot = document.getElementById("chatbot");
+    const chatLog = document.getElementById("chat-log");
+
+    const faqAnswers = {
+      "where does the donation go": "Your donation helps provide food and books to people in need across India.",
+      "can i donate food directly": "Yes! Please contact us via the Volunteer page to schedule a food drop.",
+      "how can i volunteer": "Head over to the 'Be a Volunteer' page and fill out the form!",
+      "is my money safe": "Absolutely! We ensure every donation is securely processed and transparently used.",
+      "do i get any receipt": "Yes, once your donation is processed, we send you a receipt via email."
+    };
+
+    function toggleChat() {
+      chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
+    }
+
+    function autoQuestion(question) {
+      const userMsg = document.createElement("div");
+      userMsg.className = "user-message";
+      userMsg.innerText = question;
+      chatLog.appendChild(userMsg);
+
+      const lowerText = question.toLowerCase();
+      let reply = "Sorry, I didn't get that. Try asking one of the suggested questions.";
+      for (let key in faqAnswers) {
+        if (lowerText.includes(key)) {
+          reply = faqAnswers[key];
+          break;
+        }
+      }
+
+      const botMsg = document.createElement("div");
+      botMsg.className = "bot-message";
+      botMsg.innerText = reply;
+      chatLog.appendChild(botMsg);
+
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+  </script>
+</body>
+</html>
